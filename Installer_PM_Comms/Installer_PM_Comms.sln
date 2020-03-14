@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer_PM_Comms", "Installer_PM_Comms\Installer_PM_Comms.csproj", "{6C34858B-C6F2-4638-8579-1769B472F69B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C34858B-C6F2-4638-8579-1769B472F69B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C34858B-C6F2-4638-8579-1769B472F69B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C34858B-C6F2-4638-8579-1769B472F69B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C34858B-C6F2-4638-8579-1769B472F69B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F88B496-9A4E-4E9C-AF0C-07FFD589B33E}
+	EndGlobalSection
+EndGlobal
