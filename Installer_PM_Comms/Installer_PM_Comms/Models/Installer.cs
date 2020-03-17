@@ -15,6 +15,14 @@ namespace Installer_PM_Comms.Models
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
+        [ForeignKey("Address")]
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
+
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
+        public Job Job { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
