@@ -27,7 +27,7 @@ namespace Installer_PM_Comms.ActionFilters
                 } 
                 else if (_claimsPrincipal.IsInRole("Project Manager"))
                 { 
-                    context.Result = new RedirectToActionResult("Index", "Project_Managers", null); 
+                    context.Result = new RedirectToActionResult("Index", "Project_Manager", null); 
                 }
                 else if (_claimsPrincipal.IsInRole("Installer"))
                 {
