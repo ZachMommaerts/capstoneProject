@@ -21,7 +21,7 @@ namespace Installer_PM_Comms.Models
         public Address Address { get; set; }
 
         [ForeignKey("Job")]
-        public int JobId { get; set; }
+        public int? JobId { get; set; }
         public Job Job { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

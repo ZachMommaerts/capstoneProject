@@ -12,6 +12,7 @@ namespace Installer_PM_Comms.Models
     {
         [Key]
         public int Id { get; set; }
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
@@ -19,11 +20,9 @@ namespace Installer_PM_Comms.Models
         [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
-
-        [ForeignKey("Job")]
-        public int JobId { get; set; }
-        public Job Job { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
+        public PhoneAttribute? PhoneNumber { get; set; }
+        public EmailAddressAttribute? EmailAddress { get; set; }
+        public IList<Job_Installs> Job_Installs { get; set; }
     }
 }

@@ -30,17 +30,60 @@ namespace Installer_PM_Comms.Controllers
             if (User.IsInRole("Admin"))
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var AdminInfo = _context.Admin.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+                var AdminInfo = _context.Admins.Where(c => c.IdentityUserId == userId).FirstOrDefault();
                 if (AdminInfo == null)
                 {
-                    return RedirectToAction("Create", "Administrators");
+                    return RedirectToAction("Create", "Admins");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Administrators");
+                    return RedirectToAction("Index", "Admins");
                 }
             }
-            return View();
+            else if (User.IsInRole("Project_Manager"))
+            {
+                if (User.IsInRole("Project_Manager"))
+                {
+                    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var DonorInfo = _context.Project_Managers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+                    if (DonorInfo == null)
+                    {
+                        return RedirectToAction("Create", "Project_Manager");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Project_Manager");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else if (User.IsInRole("Installer"))
+            {
+                if (User.IsInRole("Installer"))
+                {
+                    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var DonorInfo = _context.Installers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+                    if (DonorInfo == null)
+                    {
+                        return RedirectToAction("Create", "Installers");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Installers");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Privacy()

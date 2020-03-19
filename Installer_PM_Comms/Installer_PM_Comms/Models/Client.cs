@@ -16,6 +16,8 @@ namespace Installer_PM_Comms.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public string CompanyName { get; set; }
-        public string ContactName { get; set; }
+        public string? ContactName { get; set; }
+        public PhoneAttribute? ContactPhoneNumber { get; set; }
+        public EmailAddressAttribute? ContactEmailAddress { get; set; }
     }
 }

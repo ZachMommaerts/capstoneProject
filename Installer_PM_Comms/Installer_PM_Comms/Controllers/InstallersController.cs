@@ -24,7 +24,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Installers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Installer.Include(i => i.IdentityUser);
+            var applicationDbContext = _context.Installers.Include(i => i.IdentityUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace Installer_PM_Comms.Controllers
                 return NotFound();
             }
 
-            var installer = await _context.Installer
+            var installer = await _context.Installers
                 .Include(i => i.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (installer == null)
@@ -79,7 +79,7 @@ namespace Installer_PM_Comms.Controllers
                 return NotFound();
             }
 
-            var installer = await _context.Installer.FindAsync(id);
+            var installer = await _context.Installers.FindAsync(id);
             if (installer == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace Installer_PM_Comms.Controllers
                 return NotFound();
             }
 
-            var installer = await _context.Installer
+            var installer = await _context.Installers
                 .Include(i => i.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (installer == null)
@@ -148,15 +148,15 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var installer = await _context.Installer.FindAsync(id);
-            _context.Installer.Remove(installer);
+            var installer = await _context.Installers.FindAsync(id);
+            _context.Installers.Remove(installer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InstallerExists(int id)
         {
-            return _context.Installer.Any(e => e.Id == id);
+            return _context.Installers.Any(e => e.Id == id);
         }
     }
 }
