@@ -19,8 +19,8 @@ namespace Installer_PM_Comms.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Job_Installs>().HasKey(ji => new { ji.JobId, ji.InstallerId });
-            builder.Entity<Job_Installs>().HasOne<Job>(ji => ji.Job).WithMany(j => j.Job_Installs).HasForeignKey(ji => ji.Job);
-            builder.Entity<Job_Installs>().HasOne<Installer>(ji => ji.Installer).WithMany(j => j.Job_Installs).HasForeignKey(ji => ji.Installer);
+            builder.Entity<Job_Installs>().HasOne<Job>(ji => ji.Job).WithMany(j => j.Job_Installs).HasForeignKey(ji => ji.JobId);
+            builder.Entity<Job_Installs>().HasOne<Installer>(ji => ji.Installer).WithMany(j => j.Job_Installs).HasForeignKey(ji => ji.InstallerId);
 
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Project Manager", NormalizedName = "PROJECT MANAGER" });
