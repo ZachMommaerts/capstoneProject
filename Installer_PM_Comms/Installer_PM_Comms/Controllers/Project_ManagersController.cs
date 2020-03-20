@@ -19,11 +19,11 @@ namespace Installer_PM_Comms.Controllers
             _context = context;
         }
 
-        // GET: Project_Managers
+        // GET: Job lists for the day
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Project_Managers.Include(p => p.Address).Include(p => p.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var jobsToday = _context.Jobs.Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName).Include(j => j.InstallDate);
+            return View(await jobsToday.ToListAsync());
         }
 
         // GET: Project_Managers/Details/5

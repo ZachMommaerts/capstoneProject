@@ -1,53 +1,46 @@
-﻿@model IEnumerable<Installer_PM_Comms.Models.Project_Manager>
+﻿@model IEnumerable<Installer_PM_Comms.Models.Job>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Upcoming Jobs</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Job</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
+                @Html.DisplayNameFor(model => model.InstallDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.JobNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.JobName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactPhoneNumber)
+                @Html.DisplayNameFor(model => model.Client.CompanyName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactEmailAddress)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+                @Html.DisplayFor(modelItem => item.InstallDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address.Id)
+                @Html.DisplayFor(modelItem => item.JobNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.JobName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContactPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactEmailAddress)
+                @Html.DisplayFor(modelItem => item.Client.CompanyName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
