@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Installer_PM_Comms.Controllers
 {
-    [Authorize(Roles = "Installer")]
     public class InstallersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +22,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Installers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Installers.Include(i => i.IdentityUser);
+            var applicationDbContext = _context.Installers.Include(i => i.Address).Include(i => i.IdentityUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,6 +35,7 @@ namespace Installer_PM_Comms.Controllers
             }
 
             var installer = await _context.Installers
+                .Include(i => i.Address)
                 .Include(i => i.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (installer == null)
@@ -50,6 +49,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Installers/Create
         public IActionResult Create()
         {
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id");
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -59,7 +59,7 @@ namespace Installer_PM_Comms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdentityUserId,FirstName,LastName")] Installer installer)
+        public async Task<IActionResult> Create([Bind("Id,IdentityUserId,AddressId,Name,ContactPhoneNumber,ContactEmailAddress")] Installer installer)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +67,7 @@ namespace Installer_PM_Comms.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id", installer.AddressId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", installer.IdentityUserId);
             return View(installer);
         }
@@ -84,6 +85,7 @@ namespace Installer_PM_Comms.Controllers
             {
                 return NotFound();
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id", installer.AddressId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", installer.IdentityUserId);
             return View(installer);
         }
@@ -93,7 +95,7 @@ namespace Installer_PM_Comms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityUserId,FirstName,LastName")] Installer installer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityUserId,AddressId,Name,ContactPhoneNumber,ContactEmailAddress")] Installer installer)
         {
             if (id != installer.Id)
             {
@@ -120,6 +122,7 @@ namespace Installer_PM_Comms.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id", installer.AddressId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", installer.IdentityUserId);
             return View(installer);
         }
@@ -133,6 +136,7 @@ namespace Installer_PM_Comms.Controllers
             }
 
             var installer = await _context.Installers
+                .Include(i => i.Address)
                 .Include(i => i.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (installer == null)

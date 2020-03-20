@@ -13,7 +13,7 @@ namespace Installer_PM_Comms.Models
         public int Id { get; set; }
 
         [ForeignKey("Project_Manager")]
-        public int ProjectManagerId { get; set; }
+        public int? ProjectManagerId { get; set; }
         public Project_Manager Project_Manager { get; set; }
 
         [ForeignKey("Client")]
