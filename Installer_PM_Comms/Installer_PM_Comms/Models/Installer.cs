@@ -21,8 +21,12 @@ namespace Installer_PM_Comms.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public string Name { get; set; }
-        public PhoneAttribute? PhoneNumber { get; set; }
-        public EmailAddressAttribute? EmailAddress { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public string? ContactPhoneNumber { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string? ContactEmailAddress { get; set; }
         public IList<Job_Installs> Job_Installs { get; set; }
     }
 }
