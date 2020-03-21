@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
+using System.Security.Claims;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -22,7 +23,8 @@ namespace Installer_PM_Comms.Controllers
         // GET: Job lists for the day
         public async Task<IActionResult> Index()
         {
-            var jobsToday = _context.Jobs.Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName).Include(j => j.InstallDate);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName).Include(j => j.InstallDate);
             return View(await jobsToday.ToListAsync());
         }
 
