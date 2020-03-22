@@ -26,12 +26,12 @@ namespace Installer_PM_Comms.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (User.IsInRole("Project_Manager"))
             {
-                var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName).Include(j => j.InstallDate);
+                var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Where(j => j.InstallDate == DateTime.Today).Include(j => j.JobNumber);
                 return View(await jobsToday.ToListAsync());
             }
             else if (User.IsInRole("Installer"))
             {
-                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName).Include(j => j.Job.InstallDate);
+                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
                 return View(await jobsToday.ToListAsync());
             }
             else
