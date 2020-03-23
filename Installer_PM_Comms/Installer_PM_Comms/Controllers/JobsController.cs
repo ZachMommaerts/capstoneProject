@@ -26,7 +26,7 @@ namespace Installer_PM_Comms.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (User.IsInRole("Project_Manager"))
             {
-                var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Where(j => j.InstallDate == DateTime.Today).Include(j => j.JobNumber);
+                var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Where(j => j.InstallDate == DateTime.Today).Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName);
                 return View(await jobsToday.ToListAsync());
             }
             else if (User.IsInRole("Installer"))

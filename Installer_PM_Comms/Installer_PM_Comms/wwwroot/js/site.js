@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-    if (current)
+    $(".ClientFill").auto
 
 
 
