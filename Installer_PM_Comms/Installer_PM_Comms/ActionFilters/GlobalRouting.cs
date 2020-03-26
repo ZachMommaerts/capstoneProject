@@ -20,19 +20,20 @@ namespace Installer_PM_Comms.ActionFilters
         { 
             var controller = context.RouteData.Values["controller"]; 
             if (controller.Equals("Home")) 
-            { 
-                if (_claimsPrincipal.IsInRole("Admin")) 
-                { 
-                    context.Result = new RedirectToActionResult("Index", "Admins", null); 
-                } 
-                else if (_claimsPrincipal.IsInRole("Project Manager"))
-                { 
-                    context.Result = new RedirectToActionResult("Index", "Project_Manager", null); 
-                }
-                else if (_claimsPrincipal.IsInRole("Installer"))
-                {
-                    context.Result = new RedirectToActionResult("Index", "Installers", null);
-                }
+            {
+                context.Result = new RedirectToActionResult("Index", "Job_Installs", null);
+                //if (_claimsPrincipal.IsInRole("Admin")) 
+                //{ 
+                //    context.Result = new RedirectToActionResult("Index", "Admins", null); 
+                //} 
+                //else if (_claimsPrincipal.IsInRole("Project Manager"))
+                //{ 
+                //    context.Result = new RedirectToActionResult("Index", "Project_Managers", null); 
+                //}
+                //else if (_claimsPrincipal.IsInRole("Installer"))
+                //{
+                //    context.Result = new RedirectToActionResult("Index", "Installers", null);
+                //}
             } 
         }
 
