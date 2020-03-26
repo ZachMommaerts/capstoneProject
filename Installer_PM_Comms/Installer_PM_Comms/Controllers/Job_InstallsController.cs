@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
+using System.Security.Claims;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -22,8 +23,21 @@ namespace Installer_PM_Comms.Controllers
         // GET: Job_Installs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Job_Installs.Include(j => j.Installer).Include(j => j.Job);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (User.IsInRole("Project_Manager"))
+            {
+                var jobsToday = _context.Job_Installs.Where(j => j.Job.Project_Manager.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
+                return View(await jobsToday.ToListAsync());
+            }
+            else if (User.IsInRole("Installer"))
+            {
+                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
+                return View(await jobsToday.ToListAsync());
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Job_Installs/Details/5

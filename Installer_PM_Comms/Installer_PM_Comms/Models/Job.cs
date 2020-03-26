@@ -25,6 +25,17 @@ namespace Installer_PM_Comms.Models
         public string? Photos { get; set; }
         public string? Description { get; set; }
         public DateTime? InstallDate { get; set; }
+        public bool InstallCompleted { get; set; } = false;
+        public DateTime? ClockInOne { get; set; }
+        public DateTime? ClockOutOne { get; set; }
+        public DateTime? ClockInTwo { get; set; }
+        public DateTime? ClockOutTwo { get; set; }
+        public DateTime? ClockInThree { get; set; }
+        public DateTime? ClockOutThree { get; set; }
+        public DateTime? ClockInFour { get; set; }
+        public DateTime? ClockOutFour { get; set; }
+        public DateTime? ClockInFive { get; set; }
+        public DateTime? ClockOutFive { get; set; }
         public string? Notes { get; set; }
         public bool Completed { get; set; } = false;
         public DateTime? CompletionDate { get; set; }

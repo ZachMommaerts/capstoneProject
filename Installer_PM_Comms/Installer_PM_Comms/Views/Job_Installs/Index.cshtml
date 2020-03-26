@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Today's Jobs</h1>
+<h3>@DateTime.Today</h3>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,35 +15,36 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Job.JobNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Installer)
+                @Html.DisplayNameFor(model => model.Job.JobName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Job)
+                @Html.DisplayNameFor(model => model.Job.Client.CompanyName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Installer.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job.JobNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job.JobName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job.Client.CompanyName)
+                </td>
+                <td>
+                    <a id="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
