@@ -42,8 +42,9 @@
                 <input asp-for="Job.Blueprints" class="form-control" />
                 <span asp-validation-for="Job.Blueprints" class="text-danger"></span>
             </div>
-            <div>
-                <select id="installers" asp-items="@(new SelectList(Model.Installer.Name))"></select>
+            <div class="form-group">
+                <label asp-for="Installer.Name"></label>
+                <select id="installers" asp-for="Installer.Name"></select>
             </div>
             <div class=" form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />

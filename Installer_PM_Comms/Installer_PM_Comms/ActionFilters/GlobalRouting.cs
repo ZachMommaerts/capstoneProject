@@ -21,7 +21,10 @@ namespace Installer_PM_Comms.ActionFilters
             var controller = context.RouteData.Values["controller"]; 
             if (controller.Equals("Home")) 
             {
-                context.Result = new RedirectToActionResult("Index", "Job_Installs", null);
+                if (_claimsPrincipal.IsInRole("Admin, Project Manager, Installer"))
+                {
+                    context.Result = new RedirectToActionResult("Index", "Job_Installs", null);
+                }
                 //if (_claimsPrincipal.IsInRole("Admin")) 
                 //{ 
                 //    context.Result = new RedirectToActionResult("Index", "Admins", null); 

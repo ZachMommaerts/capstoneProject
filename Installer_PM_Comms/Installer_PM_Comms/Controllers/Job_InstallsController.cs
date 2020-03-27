@@ -64,6 +64,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Job_Installs/Create
         public IActionResult Create()
         {
+            
             ViewData["InstallerId"] = new SelectList(_context.Installers, "Id", "Id");
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id");
             return View();
