@@ -63,7 +63,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Jobs/Create
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
+            ViewData["ClientName"] = new SelectList(_context.Clients, "Id", "Id");
             ViewData["ProjectManagerId"] = new SelectList(_context.Project_Managers, "Id", "Id");
             return View();
         }

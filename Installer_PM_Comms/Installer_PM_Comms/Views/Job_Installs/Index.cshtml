@@ -6,7 +6,11 @@
 }
 
 <h1>Today's Jobs</h1>
-<h3>@DateTime.Today</h3>
+@{
+    var daytime = DateTime.Today;
+    var dateOnly = daytime.ToShortDateString();
+}
+<h3>@dateOnly</h3>
 
 <p>
     <a asp-action="Create">Create New</a>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -26,12 +27,12 @@ namespace Installer_PM_Comms.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (User.IsInRole("Project_Manager"))
             {
-                var jobsToday = _context.Job_Installs.Where(j => j.Job.Project_Manager.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
+                var jobsToday = _context.Job_Installs.Where(j => j.Job.Project_Manager.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job).Include(j => j.Job.Client);
                 return View(await jobsToday.ToListAsync());
             }
             else if (User.IsInRole("Installer"))
             {
-                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
+                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job).Include(j => j.Job.Client);
                 return View(await jobsToday.ToListAsync());
             }
             else
@@ -59,7 +60,7 @@ namespace Installer_PM_Comms.Controllers
 
             return View(job_Installs);
         }
-
+        [Authorize(Roles = "Project Manager, Admin")]
         // GET: Job_Installs/Create
         public IActionResult Create()
         {
