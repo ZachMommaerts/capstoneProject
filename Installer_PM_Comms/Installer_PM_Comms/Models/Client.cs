@@ -13,7 +13,7 @@ namespace Installer_PM_Comms.Models
         public int Id { get; set; }
 
         [ForeignKey("Address")]
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public Address Address { get; set; }
         public string CompanyName { get; set; }
         public string? ContactName { get; set; }

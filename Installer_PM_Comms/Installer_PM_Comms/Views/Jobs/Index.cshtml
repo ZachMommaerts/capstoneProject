@@ -7,10 +7,6 @@
 
 <h1>Today's Jobs</h1>
 <h3>@DateTime.Today</h3>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -20,9 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.JobName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Client.CompanyName)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -35,9 +31,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.JobName)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Client.CompanyName)
-            </td>
+            </td>*@
             <td>
                 <a id="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

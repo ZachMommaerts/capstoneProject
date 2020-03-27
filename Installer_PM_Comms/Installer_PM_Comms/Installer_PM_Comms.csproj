@@ -28,4 +28,9 @@
     <PackageReference Include="Twilio" Version="5.38.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

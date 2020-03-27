@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Installer_PM_Comms.Models.Job_Installs>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Jobs</h1>
+@{
+    if (Model == null)
+    {
+        <h3>No projects Available</h3>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Job.JobNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Job.JobName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Job.Client.CompanyName)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Job.JobNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Job.JobName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Job.Client.CompanyName)
+                        </td>
+                        <td>
+                            <a id="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a @Html.ActionLink("Notify Installers", "sendSMS", "SMS")></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}

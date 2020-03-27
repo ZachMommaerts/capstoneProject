@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
+using System.Security.Claims;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -22,6 +23,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Installers
         public async Task<IActionResult> Index()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var applicationDbContext = _context.Installers.Include(i => i.Address).Include(i => i.IdentityUser);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -49,7 +51,9 @@ namespace Installer_PM_Comms.Controllers
         // GET: Installers/Create
         public IActionResult Create()
         {
-            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id");
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Address address = new Address();
+            int AddressId = (address.Id = 5);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -61,6 +65,7 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdentityUserId,AddressId,Name,ContactPhoneNumber,ContactEmailAddress")] Installer installer)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (ModelState.IsValid)
             {
                 _context.Add(installer);

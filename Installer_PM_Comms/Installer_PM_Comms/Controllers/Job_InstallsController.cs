@@ -9,16 +9,21 @@ using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Installer_PM_Comms.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Installer_PM_Comms.Controllers
 {
     public class Job_InstallsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public Job_InstallsController(ApplicationDbContext context)
+        public Job_InstallsController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment)
         {
             _context = context;
+            webHostEnvironment = _webHostEnvironment;
         }
 
         // GET: Job_Installs
@@ -40,10 +45,19 @@ namespace Installer_PM_Comms.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Project Manager, Admin")]
+        public async Task<IActionResult> GetAllJobs()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var allJobs = _context.Job_Installs.Include(j => j.Job).Include(j => j.Job.Client);
+            return View(await allJobs.ToListAsync());
+        }
+
 
         // GET: Job_Installs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id == null)
             {
                 return NotFound();
@@ -64,7 +78,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Job_Installs/Create
         public IActionResult Create()
         {
-            
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["InstallerId"] = new SelectList(_context.Installers, "Id", "Id");
             ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id");
             return View();
@@ -75,22 +89,29 @@ namespace Installer_PM_Comms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,InstallerId,JobId")] Job_Installs job_Installs)
+        public async Task<IActionResult> Create(JobViewModel JobViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(job_Installs);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string uniqueFileName = UploadedFile(JobViewModel);
+                Job Job = new Job
+                {
+                    Blueprints = uniqueFileName,
+                    JobNumber = JobViewModel.JobNumber,
+                    JobName = JobViewModel.JobName,
+                };
+                _context.Add(Job);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["InstallerId"] = new SelectList(_context.Installers, "Id", "Id", job_Installs.InstallerId);
-            ViewData["JobId"] = new SelectList(_context.Jobs, "Id", "Id", job_Installs.JobId);
-            return View(job_Installs);
+            return View(JobViewModel);
         }
 
         // GET: Job_Installs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id == null)
             {
                 return NotFound();
@@ -113,6 +134,7 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,InstallerId,JobId")] Job_Installs job_Installs)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != job_Installs.JobId)
             {
                 return NotFound();
@@ -146,6 +168,7 @@ namespace Installer_PM_Comms.Controllers
         // GET: Job_Installs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id == null)
             {
                 return NotFound();
@@ -168,6 +191,7 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var job_Installs = await _context.Job_Installs.FindAsync(id);
             _context.Job_Installs.Remove(job_Installs);
             await _context.SaveChangesAsync();
@@ -177,6 +201,22 @@ namespace Installer_PM_Comms.Controllers
         private bool Job_InstallsExists(int id)
         {
             return _context.Job_Installs.Any(e => e.JobId == id);
+        }
+
+        private string UploadedFile(JobViewModel JobViewModel)
+        {
+            string uniqueFileName = null;
+            if (JobViewModel.Blueprints != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + JobViewModel.Blueprints.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    JobViewModel.Blueprints.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

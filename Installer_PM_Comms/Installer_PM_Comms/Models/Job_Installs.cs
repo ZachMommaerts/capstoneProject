@@ -13,7 +13,7 @@ namespace Installer_PM_Comms.Models
         public int Id { get; set; }
 
         [ForeignKey("Installer")]
-        public int InstallerId { get; set; }
+        public int? InstallerId { get; set; }
         public Installer Installer { get; set; }
 
         [ForeignKey("Job")]

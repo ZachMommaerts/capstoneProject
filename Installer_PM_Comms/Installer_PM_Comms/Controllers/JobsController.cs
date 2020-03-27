@@ -8,36 +8,43 @@ using Microsoft.EntityFrameworkCore;
 using Installer_PM_Comms.Data;
 using Installer_PM_Comms.Models;
 using System.Security.Claims;
+using Installer_PM_Comms.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Installer_PM_Comms.Controllers
 {
     public class JobsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public JobsController(ApplicationDbContext context)
+        public JobsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Jobs
         public async Task<IActionResult> Index()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (User.IsInRole("Project_Manager"))
-            {
-                var jobsToday = _context.Jobs.Where(j => j.Project_Manager.IdentityUserId == userId).Where(j => j.InstallDate == DateTime.Today).Include(j => j.JobNumber).Include(j => j.JobName).Include(j => j.Client.CompanyName);
-                return View(await jobsToday.ToListAsync());
-            }
-            else if (User.IsInRole("Installer"))
-            {
-                var jobsToday = _context.Job_Installs.Where(j => j.Installer.IdentityUserId == userId).Where(j => j.Job.InstallDate == DateTime.Today).Include(j => j.Job.JobNumber).Include(j => j.Job.JobName).Include(j => j.Job.Client.CompanyName);
-                return View(await jobsToday.ToListAsync());
-            }
-            else
-            {
-                return View();
-            }
+            var jobs = _context.Jobs;
+            return View(await jobs.ToListAsync());
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //if (User.IsInRole("Project_Manager"))
+            //{
+            //    var jobsToday = _context.Jobs;
+            //    return View(await jobsToday.ToListAsync());
+            //}
+            //else if (User.IsInRole("Installer"))
+            //{
+            //    var jobsToday = _context.Job_Installs.Include( j => j.Job);
+            //    return View(await jobsToday.ToListAsync());
+            //}
+            //else
+            //{
+            //    return View();
+            //}
         }
 
         // GET: Jobs/Details/5
@@ -73,17 +80,25 @@ namespace Installer_PM_Comms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProjectManagerId,ClientId,JobName,JobNumber,Blueprints,Photos,Description,InstallDate,Notes,Completed,CompletionDate")] Job job)
+        public async Task<IActionResult> Create(JobViewModel JobViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(job);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string uniqueFileName = UploadedFile(JobViewModel);
+                Job Job = new Job
+                {
+                    Blueprints = uniqueFileName,
+                    JobNumber = JobViewModel.JobNumber,
+                    JobName = JobViewModel.JobName,
+                    Description = JobViewModel.Description,
+                    InstallDate = JobViewModel.InstallDate,
+                };
+                _context.Jobs.Add(Job);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", job.ClientId);
-            ViewData["ProjectManagerId"] = new SelectList(_context.Project_Managers, "Id", "Id", job.ProjectManagerId);
-            return View(job);
+            return View(JobViewModel);
         }
 
         // GET: Jobs/Edit/5
@@ -175,6 +190,22 @@ namespace Installer_PM_Comms.Controllers
         private bool JobExists(int id)
         {
             return _context.Jobs.Any(e => e.Id == id);
+        }
+
+        private string UploadedFile(JobViewModel JobViewModel)
+        {
+            string uniqueFileName = null;
+            if (JobViewModel.Blueprints != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + JobViewModel.Blueprints.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    JobViewModel.Blueprints.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

@@ -51,7 +51,8 @@ namespace Installer_PM_Comms.Controllers
         // GET: Project_Managers/Create
         public IActionResult Create()
         {
-            ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id");
+            Address address = new Address();
+            int AddressId = (address.Id = 5);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -67,7 +68,7 @@ namespace Installer_PM_Comms.Controllers
             {
                 _context.Add(project_Manager);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Job_Installs");
             }
             ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id", project_Manager.AddressId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", project_Manager.IdentityUserId);

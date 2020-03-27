@@ -4,14 +4,16 @@ using Installer_PM_Comms.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Installer_PM_Comms.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200327144232_nullableaddresses")]
+    partial class nullableaddresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,7 +233,7 @@ namespace Installer_PM_Comms.Migrations
                     b.Property<string>("Blueprints")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ClockInOne")
@@ -286,7 +288,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new hand rail for downtown restaurant",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Restaurant Rail",
                             JobNumber = 247.0
                         },
@@ -297,7 +299,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new residential fence in west allis",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Residential Fence",
                             JobNumber = 768.0
                         },
@@ -308,7 +310,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "remodel stair rail 12inches",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Stair Rail Remodel",
                             JobNumber = 134.0
                         },
@@ -319,7 +321,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new bar rail interior",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Bar construction",
                             JobNumber = 318.0
                         });
@@ -403,22 +405,22 @@ namespace Installer_PM_Comms.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7a757fcf-b510-4a14-8149-bc3088f60ba3",
-                            ConcurrencyStamp = "6f2414cd-847f-42af-8f98-6867117a9efb",
+                            Id = "5853d9a4-8f3b-4804-9a65-bef04db11831",
+                            ConcurrencyStamp = "34e3cc99-196d-43b0-af95-99ec9a0dca0e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7654973d-cf9d-47e3-bd0b-fa8a9dfd864e",
-                            ConcurrencyStamp = "d97c21e1-9f95-4daf-884c-f0e44dbc44f4",
+                            Id = "10e04fa8-b8e5-40ab-ac6f-7d16a27534d9",
+                            ConcurrencyStamp = "b0332fb6-6cee-4009-9bba-42259f994c8c",
                             Name = "Project Manager",
                             NormalizedName = "PROJECT MANAGER"
                         },
                         new
                         {
-                            Id = "60aa33a4-f842-46d4-8e43-24225d6db6a7",
-                            ConcurrencyStamp = "9e3ee102-9687-435b-bc15-0d0b56527b0b",
+                            Id = "e2436895-c907-4725-9725-65ed88e3ac48",
+                            ConcurrencyStamp = "fd613b92-96c7-475c-84de-c05ef522ee6a",
                             Name = "Installer",
                             NormalizedName = "INSTALLER"
                         });
@@ -632,7 +634,9 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Installer_PM_Comms.Models.Project_Manager", "Project_Manager")
                         .WithMany()

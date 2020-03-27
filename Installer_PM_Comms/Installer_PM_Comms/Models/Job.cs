@@ -17,7 +17,7 @@ namespace Installer_PM_Comms.Models
         public Project_Manager Project_Manager { get; set; }
 
         [ForeignKey("Client")]
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         public Client Client { get; set; }
         public string JobName { get; set; }
         public double JobNumber { get; set; }
@@ -28,14 +28,6 @@ namespace Installer_PM_Comms.Models
         public bool InstallCompleted { get; set; } = false;
         public DateTime? ClockInOne { get; set; }
         public DateTime? ClockOutOne { get; set; }
-        public DateTime? ClockInTwo { get; set; }
-        public DateTime? ClockOutTwo { get; set; }
-        public DateTime? ClockInThree { get; set; }
-        public DateTime? ClockOutThree { get; set; }
-        public DateTime? ClockInFour { get; set; }
-        public DateTime? ClockOutFour { get; set; }
-        public DateTime? ClockInFive { get; set; }
-        public DateTime? ClockOutFive { get; set; }
         public string? Notes { get; set; }
         public bool Completed { get; set; } = false;
         public DateTime? CompletionDate { get; set; }

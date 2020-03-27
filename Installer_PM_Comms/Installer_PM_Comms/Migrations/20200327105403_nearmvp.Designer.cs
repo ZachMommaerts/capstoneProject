@@ -4,14 +4,16 @@ using Installer_PM_Comms.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Installer_PM_Comms.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200327105403_nearmvp")]
+    partial class nearmvp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,14 +82,6 @@ namespace Installer_PM_Comms.Migrations
                             State = "wi",
                             StreetName = "1105 57th st",
                             ZipCode = 53140
-                        },
-                        new
-                        {
-                            Id = 5,
-                            City = "milwaukee",
-                            State = "wi",
-                            StreetName = "3880 w milwaukee rd",
-                            ZipCode = 53208
                         });
                 });
 
@@ -131,7 +125,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
@@ -197,7 +191,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactEmailAddress")
@@ -231,13 +225,37 @@ namespace Installer_PM_Comms.Migrations
                     b.Property<string>("Blueprints")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("ClockInFive")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockInFour")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ClockInOne")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("ClockInThree")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockInTwo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockOutFive")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockOutFour")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("ClockOutOne")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockOutThree")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ClockOutTwo")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Completed")
@@ -286,7 +304,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new hand rail for downtown restaurant",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Restaurant Rail",
                             JobNumber = 247.0
                         },
@@ -297,7 +315,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new residential fence in west allis",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Residential Fence",
                             JobNumber = 768.0
                         },
@@ -308,7 +326,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "remodel stair rail 12inches",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Stair Rail Remodel",
                             JobNumber = 134.0
                         },
@@ -319,7 +337,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new bar rail interior",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Bar construction",
                             JobNumber = 318.0
                         });
@@ -350,7 +368,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactEmailAddress")
@@ -403,22 +421,22 @@ namespace Installer_PM_Comms.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7a757fcf-b510-4a14-8149-bc3088f60ba3",
-                            ConcurrencyStamp = "6f2414cd-847f-42af-8f98-6867117a9efb",
+                            Id = "c70e878c-8218-40e2-ba58-b62c7f9b1b11",
+                            ConcurrencyStamp = "8f15a1f6-cadc-4e0c-8561-253de08e3eb1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7654973d-cf9d-47e3-bd0b-fa8a9dfd864e",
-                            ConcurrencyStamp = "d97c21e1-9f95-4daf-884c-f0e44dbc44f4",
+                            Id = "b5efdd2c-d6fd-439f-b9ef-8e76996f8358",
+                            ConcurrencyStamp = "6382aa9f-4c23-437b-aebc-fcbdee576018",
                             Name = "Project Manager",
                             NormalizedName = "PROJECT MANAGER"
                         },
                         new
                         {
-                            Id = "60aa33a4-f842-46d4-8e43-24225d6db6a7",
-                            ConcurrencyStamp = "9e3ee102-9687-435b-bc15-0d0b56527b0b",
+                            Id = "9ea7299a-7ace-4f3e-b10a-e2866c5afa04",
+                            ConcurrencyStamp = "6e794406-6765-414a-9043-1f99a20a187b",
                             Name = "Installer",
                             NormalizedName = "INSTALLER"
                         });
@@ -614,14 +632,18 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Installer_PM_Comms.Models.Installer", b =>
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
@@ -632,7 +654,9 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Installer_PM_Comms.Models.Project_Manager", "Project_Manager")
                         .WithMany()
@@ -658,7 +682,9 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
