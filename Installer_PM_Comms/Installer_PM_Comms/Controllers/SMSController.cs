@@ -17,6 +17,7 @@ namespace Installer_PM_Comms.Controllers
 
             TwilioClient.Init(accountSid, authToken);
 
+            
             var message = MessageResource.Create(
                 body: "A new job is ready to be installed.",
                 from: new Twilio.Types.PhoneNumber("+16312066522"),
