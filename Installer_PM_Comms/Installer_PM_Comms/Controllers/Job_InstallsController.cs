@@ -217,5 +217,24 @@ namespace Installer_PM_Comms.Controllers
             }
             return uniqueFileName;
         }
+        public async Task<IActionResult> Directions(int? id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var job_Installs = await _context.Job_Installs
+                .Include(j => j.Installer)
+                .Include(j => j.Job)
+                .FirstOrDefaultAsync(m => m.JobId == id);
+            if (job_Installs == null)
+            {
+                return NotFound();
+            }
+
+            return View(job_Installs);
+        }
     }
 }
