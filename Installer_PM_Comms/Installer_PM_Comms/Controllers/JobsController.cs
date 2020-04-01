@@ -74,6 +74,12 @@ namespace Installer_PM_Comms.Controllers
             ViewData["ProjectManagerId"] = new SelectList(_context.Project_Managers, "Id", "Id");
             return View();
         }
+        public async Task<IActionResult> GetAllJobs()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var allJobs = _context.Job_Installs.Include(j => j.Job).Include(j => j.Job.Client);
+            return View(await allJobs.ToListAsync());
+        }
 
         // POST: Jobs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

@@ -403,22 +403,22 @@ namespace Installer_PM_Comms.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7a757fcf-b510-4a14-8149-bc3088f60ba3",
-                            ConcurrencyStamp = "6f2414cd-847f-42af-8f98-6867117a9efb",
+                            Id = "53fd980e-a1b0-49c5-a2c0-a2cd1edf8dab",
+                            ConcurrencyStamp = "67cf66a9-1660-4aeb-8d85-9a0a22fdfc4e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7654973d-cf9d-47e3-bd0b-fa8a9dfd864e",
-                            ConcurrencyStamp = "d97c21e1-9f95-4daf-884c-f0e44dbc44f4",
+                            Id = "5930bec6-f1e5-41ca-9970-89190c35ce88",
+                            ConcurrencyStamp = "b0c38aca-b19b-43c5-be19-3a7505647b51",
                             Name = "Project Manager",
                             NormalizedName = "PROJECT MANAGER"
                         },
                         new
                         {
-                            Id = "60aa33a4-f842-46d4-8e43-24225d6db6a7",
-                            ConcurrencyStamp = "9e3ee102-9687-435b-bc15-0d0b56527b0b",
+                            Id = "e3684347-8b0d-4014-9c7c-b715f91bc941",
+                            ConcurrencyStamp = "d1166a87-9fc5-4f52-bf46-900d47288ff8",
                             Name = "Installer",
                             NormalizedName = "INSTALLER"
                         });

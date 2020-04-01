@@ -5,17 +5,6 @@
     <UserSecretsId>aspnet-Installer_PM_Comms-4FAE5657-1D93-4D23-AB35-9D9737AE9F85</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20200320004544_init.cs" />
-    <Compile Remove="Migrations\20200320004544_init.Designer.cs" />
-    <Compile Remove="Migrations\20200320011439_init.cs" />
-    <Compile Remove="Migrations\20200320011439_init.Designer.cs" />
-    <Compile Remove="Migrations\20200320011754_init.cs" />
-    <Compile Remove="Migrations\20200320011754_init.Designer.cs" />
-    <Compile Remove="Migrations\20200320012745_init.cs" />
-    <Compile Remove="Migrations\20200320012745_init.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />

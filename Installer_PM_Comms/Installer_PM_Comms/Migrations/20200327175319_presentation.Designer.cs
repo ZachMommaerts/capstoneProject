@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Installer_PM_Comms.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200326043954_redo")]
-    partial class redo
+    [Migration("20200327175319_presentation")]
+    partial class presentation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,14 @@ namespace Installer_PM_Comms.Migrations
                             State = "wi",
                             StreetName = "1105 57th st",
                             ZipCode = 53140
+                        },
+                        new
+                        {
+                            Id = 5,
+                            City = "milwaukee",
+                            State = "wi",
+                            StreetName = "3880 w milwaukee rd",
+                            ZipCode = 53208
                         });
                 });
 
@@ -125,7 +133,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
@@ -191,7 +199,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactEmailAddress")
@@ -225,37 +233,13 @@ namespace Installer_PM_Comms.Migrations
                     b.Property<string>("Blueprints")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("ClockInFive")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockInFour")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ClockInOne")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ClockInThree")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockInTwo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockOutFive")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockOutFour")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("ClockOutOne")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockOutThree")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ClockOutTwo")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Completed")
@@ -304,7 +288,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new hand rail for downtown restaurant",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Restaurant Rail",
                             JobNumber = 247.0
                         },
@@ -315,7 +299,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new residential fence in west allis",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Residential Fence",
                             JobNumber = 768.0
                         },
@@ -326,7 +310,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "remodel stair rail 12inches",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Stair Rail Remodel",
                             JobNumber = 134.0
                         },
@@ -337,7 +321,7 @@ namespace Installer_PM_Comms.Migrations
                             Completed = false,
                             Description = "new bar rail interior",
                             InstallCompleted = false,
-                            InstallDate = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InstallDate = new DateTime(2020, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             JobName = "Bar construction",
                             JobNumber = 318.0
                         });
@@ -348,7 +332,7 @@ namespace Installer_PM_Comms.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.Property<int>("InstallerId")
+                    b.Property<int?>("InstallerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Id")
@@ -368,7 +352,7 @@ namespace Installer_PM_Comms.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactEmailAddress")
@@ -421,22 +405,22 @@ namespace Installer_PM_Comms.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "054b3346-2aee-4c6b-883d-41be51f2f0ff",
-                            ConcurrencyStamp = "23b8a473-aeeb-4882-9846-f8b43d9a40cb",
+                            Id = "53fd980e-a1b0-49c5-a2c0-a2cd1edf8dab",
+                            ConcurrencyStamp = "67cf66a9-1660-4aeb-8d85-9a0a22fdfc4e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a6533ebb-346e-4ed2-82e1-ff61982ef29a",
-                            ConcurrencyStamp = "90a0cbba-dd37-4a89-bf36-47dfeaf6dcd2",
+                            Id = "5930bec6-f1e5-41ca-9970-89190c35ce88",
+                            ConcurrencyStamp = "b0c38aca-b19b-43c5-be19-3a7505647b51",
                             Name = "Project Manager",
                             NormalizedName = "PROJECT MANAGER"
                         },
                         new
                         {
-                            Id = "85e32f80-2b1d-40e6-86fc-2be8d8e4a63f",
-                            ConcurrencyStamp = "bf067196-8e17-409e-9684-03e4a31b53d0",
+                            Id = "e3684347-8b0d-4014-9c7c-b715f91bc941",
+                            ConcurrencyStamp = "d1166a87-9fc5-4f52-bf46-900d47288ff8",
                             Name = "Installer",
                             NormalizedName = "INSTALLER"
                         });
@@ -632,18 +616,14 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("Installer_PM_Comms.Models.Installer", b =>
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
@@ -654,9 +634,7 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("Installer_PM_Comms.Models.Project_Manager", "Project_Manager")
                         .WithMany()
@@ -682,9 +660,7 @@ namespace Installer_PM_Comms.Migrations
                 {
                     b.HasOne("Installer_PM_Comms.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()

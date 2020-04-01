@@ -13,7 +13,7 @@ namespace Installer_PM_Comms.Controllers
         public ActionResult sendSMS()
         {
             const string accountSid = "AC4351474b69c9ca4d0a4d09b92371ebe9";
-            const string authToken = "e6d84f9edeeb67901627f1ed16edb275";
+            const string authToken = "3a6268dd143a3e5b304207d3570cfaa2";
 
             TwilioClient.Init(accountSid, authToken);
 
@@ -23,7 +23,7 @@ namespace Installer_PM_Comms.Controllers
                 to: new Twilio.Types.PhoneNumber("+12624905722")
             );
 
-            return Content(message.Sid);
+            return RedirectToAction("Index", "Jobs");
         }
     }
 }

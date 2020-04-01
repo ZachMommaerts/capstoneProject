@@ -15,22 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="ProjectManagerId" class="control-label"></label>
-                <select asp-for="ProjectManagerId" class="form-control" asp-items="ViewBag.ProjectManagerId"></select>
-                <span asp-validation-for="ProjectManagerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
-                <span asp-validation-for="ClientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="JobName" class="control-label"></label>
+                <label asp-for="JobName" class="control-label">Job Name</label>
                 <input asp-for="JobName" class="form-control" />
                 <span asp-validation-for="JobName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JobNumber" class="control-label"></label>
+                <label asp-for="JobNumber" class="control-label">Job Number</label>
                 <input asp-for="JobNumber" class="form-control" />
                 <span asp-validation-for="JobNumber" class="text-danger"></span>
             </div>
@@ -49,25 +39,44 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="InstallDate" class="control-label"></label>
                 <input asp-for="InstallDate" class="form-control" />
                 <span asp-validation-for="InstallDate" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ClockInOne" class="control-label">Clock In</label>
+                <input asp-for="ClockInOne" class="form-control" />
+                <span asp-validation-for="ClockInOne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClockOutOne" class="control-label">Clock In</label>
+                <input asp-for="ClockOutOne" class="form-control" />
+                <span asp-validation-for="ClockOutOne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Notes" class="control-label"></label>
                 <input asp-for="Notes" class="form-control" />
                 <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompletionDate" class="control-label"></label>
+                <input asp-for="CompletionDate" class="form-control" />
+                <span asp-validation-for="CompletionDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="CompletionDate" class="control-label"></label>
-                <input asp-for="CompletionDate" class="form-control" />
-                <span asp-validation-for="CompletionDate" class="text-danger"></span>
+            <div>
+                <label>Choose Installer</label>
+                <select id="Installers">
+                    <option value="zach">zach</option>
+                    <option value="rick">Rick</option>
+                    <option value="jerry">Jerry</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

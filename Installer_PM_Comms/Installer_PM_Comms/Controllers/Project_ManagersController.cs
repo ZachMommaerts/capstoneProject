@@ -54,7 +54,7 @@ namespace Installer_PM_Comms.Controllers
             Address address = new Address();
             int AddressId = (address.Id = 5);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            return RedirectToAction("Index", "Jobs");
         }
 
         // POST: Project_Managers/Create
