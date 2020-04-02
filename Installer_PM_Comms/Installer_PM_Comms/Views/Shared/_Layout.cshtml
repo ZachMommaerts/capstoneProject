@@ -21,13 +21,13 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Project_Manager") || User.IsInRole("Admin") || User.IsInRole("Installer"))
+                            if (User.IsInRole("Project Manager") || User.IsInRole("Admin") || User.IsInRole("Installer"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Job_Installs" asp-action="GetAllJobs">View All Jobs</a>
                                 </li>
                             }
-                            if (User.IsInRole("Project_Manager") || User.IsInRole("Admin"))
+                            if (User.IsInRole("Project Manager") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Jobs" asp-action="Create">Create New Job</a>

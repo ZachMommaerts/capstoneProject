@@ -44,3 +44,5 @@ namespace Installer_PM_Comms.Controllers
             ViewData["AddressId"] = new SelectList(_context.Addresses, "Id", "Id", client.AddressId);
             return View(client);
         }
+    }
+}

@@ -61,9 +61,18 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdentityUserId,FirstName,LastName")] Admin admin)
         {
+            Address address = new Address();
+            {
+                address.StreetName = "3880 w milwaukee rd";
+                address.City = "Milwaukee";
+                address.State = "Wisconsin";
+                address.ZipCode = 53208;
+            }
+            admin.AddressId = address.Id;
             if (ModelState.IsValid)
             {
-                _context.Add(admin);
+                _context.Addresses.Add(address);
+                _context.Admins.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -36,11 +36,8 @@
                         <option>Choose a Contractor</option>
                         <option>Contractor not Listed</option>
                     </select>
-                </div>
-                <div>
-                <select asp-for="InstallerId" asp-items="@(new SelectList(Model.Clients,"Id", "CompanyName"))">
-                        <option>Choose a Contractor</option>
-                        <option>Contractor not Listed</option>
+                <select asp-for="InstallerId" asp-items="@(new SelectList(Model.Installers,"Id", "Name"))">
+                        <option>Choose an Installer</option>>
                     </select>
                 </div>
                 <div class=" row">

@@ -64,9 +64,19 @@ namespace Installer_PM_Comms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdentityUserId,AddressId,Name,ContactPhoneNumber,ContactEmailAddress")] Project_Manager project_Manager)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Address address = new Address();
+            {
+                address.StreetName = "3880 w milwaukee rd";
+                address.City = "Milwaukee";
+                address.State = "Wisconsin";
+                address.ZipCode = 53208;
+            }
+            project_Manager.AddressId = address.Id;
             if (ModelState.IsValid)
             {
-                _context.Add(project_Manager);
+                _context.Addresses.Add(address);
+                _context.Project_Managers.Add(project_Manager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Job_Installs");
             }

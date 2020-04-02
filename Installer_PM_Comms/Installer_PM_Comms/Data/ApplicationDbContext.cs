@@ -26,10 +26,10 @@ namespace Installer_PM_Comms.Data
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Installer", NormalizedName = "INSTALLER" });
 
             builder.Entity<Job>().HasData(
-                new Job { Id = 1, ClientId = 1, JobNumber = 247, JobName = "Restaurant Rail", Description = "new hand rail for downtown restaurant", InstallDate = DateTime.Parse("03-27-2020") },
-                new Job { Id = 2, ClientId = 2, JobNumber = 768, JobName = "Residential Fence", Description = "new residential fence in west allis", InstallDate = DateTime.Parse("03-27-2020") },
-                new Job { Id = 3, ClientId = 3, JobNumber = 134, JobName = "Stair Rail Remodel", Description = "remodel stair rail 12inches", InstallDate = DateTime.Parse("03-27-2020") },
-                new Job { Id = 4, ClientId = 4, JobNumber = 318, JobName = "Bar construction", Description = "new bar rail interior", InstallDate = DateTime.Parse("03-27-2020") }
+                new Job { Id = 1, ClientId = 1, JobNumber = 247, JobName = "Restaurant Rail", Description = "new hand rail for downtown restaurant", InstallDate = DateTime.Parse("04-02-2020") },
+                new Job { Id = 2, ClientId = 2, JobNumber = 768, JobName = "Residential Fence", Description = "new residential fence in west allis", InstallDate = DateTime.Parse("04-02-2020") },
+                new Job { Id = 3, ClientId = 3, JobNumber = 134, JobName = "Stair Rail Remodel", Description = "remodel stair rail 12inches", InstallDate = DateTime.Parse("04-02-2020") },
+                new Job { Id = 4, ClientId = 4, JobNumber = 318, JobName = "Bar construction", Description = "new bar rail interior", InstallDate = DateTime.Parse("04-02-2020") }
                 );
 
             builder.Entity<Client>().HasData(

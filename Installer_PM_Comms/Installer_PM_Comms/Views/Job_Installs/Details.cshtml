@@ -5,42 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.Job.JobName)</h1>
+<h2>@Html.DisplayFor(model => model.Job.JobNumber)</h2>
 
 <div>
     <h4>Job</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Job.Project_Manager)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Job.Project_Manager.Name)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Job.Client.CompanyName)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Job.Client.CompanyName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Job.JobName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Job.JobName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Job.JobNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Job.JobNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Job.Blueprints)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Job.Blueprints)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Job.Photos)
         </dt>
@@ -80,6 +54,37 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            var lat1;
+            var lng1;
+            var geocoder = new google.maps.Geocoder();
+            var location = '@Model.Job.Client.Address.StreetName' + '@Model.Job.Client.Address.City' + '@Model.Job.Client.Address.State' + '@Model.Job.Client.Address.ZipCode';
+            geocoder.geocode({
+                address: location
+            }, function (locResult) {
+                console.log(locResult);
+                lat1 = locResult[0].geometry.location.lat();
+                lng1 = locResult[0].geometry.location.lng();
+            });
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat1, lng: lng1 },
+                zoom: 8
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfc1qezcE30ny6OK0tm64i4JE2HqJi7dw&callback=initMap"
+            async defer></script>
+</div>
+<div>
+    <a asp-action="Directions" asp-route-id="@Model.Id">Directions</a>
+</div>
+<div>
+    <img src="~/images/@Model.Job.Blueprints" alt="Blueprints" style="height: 200px; width: 200px;" />
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
