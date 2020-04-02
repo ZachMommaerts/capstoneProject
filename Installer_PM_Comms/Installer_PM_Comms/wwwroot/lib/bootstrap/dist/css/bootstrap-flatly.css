@@ -182,12 +182,22 @@ a:not([href]):hover {
   text-decoration: none;
 }
 
+#loginscreen {
+    margin: auto !important;
+    padding: 10px;
+}
+#logintitle {
+    margin: auto !important;
+    padding: 10px;
+    text-align:center;
+}
+
 pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 1em;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1em;
 }
 
 pre {
@@ -4508,6 +4518,9 @@ input[type="button"].btn-block {
     transition: none;
   }
 }
+#nav-bar {
+    background-color: darkred !important;
+}
 
 .nav {
   display: -webkit-box;
@@ -4541,12 +4554,14 @@ input[type="button"].btn-block {
 
 .nav-tabs .nav-item {
   margin-bottom: -1px;
+  color: ghostwhite !important;
 }
 
 .nav-tabs .nav-link {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
+  color: ghostwhite !important;
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
@@ -4561,7 +4576,7 @@ input[type="button"].btn-block {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #7b8a8b;
+  color: ghostwhite !important;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -4587,15 +4602,17 @@ input[type="button"].btn-block {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   text-align: center;
+  color: ghostwhite !important;
 }
 
 .nav-justified .nav-item {
-  -ms-flex-preferred-size: 0;
-      flex-basis: 0;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  text-align: center;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: center;
+    color: ghostwhite !important;
 }
 
 .tab-content > .tab-pane {
@@ -4645,10 +4662,12 @@ input[type="button"].btn-block {
   font-size: 1.171875rem;
   line-height: inherit;
   white-space: nowrap;
+  color: ghostwhite !important;
 }
 
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
+  color:navajowhite !important;
 }
 
 .navbar-nav {
@@ -4667,6 +4686,7 @@ input[type="button"].btn-block {
 .navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
+  color: ghostwhite !important;
 }
 
 .navbar-nav .dropdown-menu {
@@ -4678,6 +4698,7 @@ input[type="button"].btn-block {
   display: inline-block;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  color: ghostwhite !important;
 }
 
 .navbar-collapse {
@@ -10870,7 +10891,7 @@ a.text-dark:hover, a.text-dark:focus {
 .nav-tabs .nav-item.open .nav-link,
 .nav-tabs .nav-item.open .nav-link:focus,
 .nav-tabs .nav-item.open .nav-link:hover {
-  color: #2C3E50;
+  color: ghostwhite !important;
 }
 
 .pagination a:hover {
