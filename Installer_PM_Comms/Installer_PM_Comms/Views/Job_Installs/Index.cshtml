@@ -48,7 +48,8 @@
                     <td>
                         <a id="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a @Html.ActionLink("Notify Installers", "sendSMS", "SMS")></a>
+                        <a @Html.ActionLink("Notify Installers", "sendSMS", "SMS")></a> |
+                        <a @Html.ActionLink("Send Information", "Job_Installs", "SendEmail")></a> |
                     </td>
                 </tr>
             }
