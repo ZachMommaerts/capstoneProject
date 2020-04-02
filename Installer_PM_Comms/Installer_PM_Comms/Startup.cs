@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Installer_PM_Comms.ActionFilters;
+using Installer_PM_Comms.Services;
 
 namespace Installer_PM_Comms
 {
@@ -45,6 +46,7 @@ namespace Installer_PM_Comms
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<IMailService, SendGridMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -45,8 +45,8 @@ namespace Installer_PM_Comms.Controllers
                 if (User.IsInRole("Project_Manager"))
                 {
                     var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var DonorInfo = _context.Project_Managers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-                    if (DonorInfo == null)
+                    var pmInfo = _context.Project_Managers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+                    if (pmInfo == null)
                     {
                         return RedirectToAction("Create", "Project_Manager");
                     }
@@ -65,8 +65,8 @@ namespace Installer_PM_Comms.Controllers
                 if (User.IsInRole("Installer"))
                 {
                     var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var DonorInfo = _context.Installers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-                    if (DonorInfo == null)
+                    var pmInfo = _context.Installers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+                    if (pmInfo == null)
                     {
                         return RedirectToAction("Create", "Installers");
                     }
@@ -82,7 +82,8 @@ namespace Installer_PM_Comms.Controllers
             }
             else
             {
-                return View();
+                return Redirect("https://localhost:44378/Identity/Account/Login");
+
             }
         }
 

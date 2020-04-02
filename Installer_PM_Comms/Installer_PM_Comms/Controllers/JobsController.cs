@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Installer_PM_Comms.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Installer_PM_Comms.Services;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -18,11 +19,13 @@ namespace Installer_PM_Comms.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMailService _mailService;
 
-        public JobsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public JobsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IMailService mailService)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _mailService = mailService;
         }
 
         // GET: Jobs
@@ -92,6 +95,7 @@ namespace Installer_PM_Comms.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 string uniqueFileName = UploadedFile(JobViewModel);
+                Job_Installs job_Installs = new Job_Installs();
                 Job Job = new Job
                 {
                     Blueprints = uniqueFileName,
@@ -99,8 +103,11 @@ namespace Installer_PM_Comms.Controllers
                     JobName = JobViewModel.JobName,
                     Description = JobViewModel.Description,
                     InstallDate = JobViewModel.InstallDate,
+                    Client = JobViewModel.Client
                 };
+                job_Installs.JobId = Job.Id;
                 _context.Jobs.Add(Job);
+                _context.Job_Installs.Add(job_Installs);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

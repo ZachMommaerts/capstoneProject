@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Installer_PM_Comms.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Installer_PM_Comms.Services;
 
 namespace Installer_PM_Comms.Controllers
 {
@@ -19,11 +20,13 @@ namespace Installer_PM_Comms.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IMailService _mailService;
 
-        public Job_InstallsController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment)
+        public Job_InstallsController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment, IMailService mailService)
         {
             _context = context;
             webHostEnvironment = _webHostEnvironment;
+            _mailService = mailService;
         }
 
         // GET: Job_Installs
@@ -235,6 +238,10 @@ namespace Installer_PM_Comms.Controllers
             }
 
             return View(job_Installs);
+        }
+        public async Task SendEmail()
+        {
+            await _mailService.SendEmailAsync("zmommaerts@gmail.com", "New Job Available", "Job Number: 357. Job Name: DownTown Abbey Rail. Company Name: Greendale Machining");
         }
     }
 }
