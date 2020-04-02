@@ -11,8 +11,14 @@ namespace Installer_PM_Comms.ViewModels
     {
         public double JobNumber { get; set; }
         public string JobName { get; set; }
+        public int ProjectManagerId { get; set; }
+        public Project_Manager Project_Manager {get; set;}
         public int ClientId { get; set; }
         public Client Client { get; set; }
+        public List<Client> Clients { get; set; }
+        public int InstallerId { get; set; }
+        public Installer Installer { get; set; }
+        public List<Installer> Installers { get; set; }
         public string? Description { get; set; }
         public DateTime? InstallDate { get; set; }
         public bool InstallCompleted { get; set; } = false;

@@ -32,11 +32,16 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="Client.CompanyName" class="control-label"></label>
-                        <input asp-for="Client.CompanyName" class="form-control" />
-                        <span asp-validation-for="Client.CompanyName" class="text-danger"></span>
-                    </div>
+                    <select asp-for="ClientId" asp-items="@(new SelectList(Model.Clients,"Id", "CompanyName"))">
+                        <option>Choose a Contractor</option>
+                        <option>Contractor not Listed</option>
+                    </select>
+                </div>
+                <div>
+                <select asp-for="InstallerId" asp-items="@(new SelectList(Model.Clients,"Id", "CompanyName"))">
+                        <option>Choose a Contractor</option>
+                        <option>Contractor not Listed</option>
+                    </select>
                 </div>
                 <div class=" row">
                     <div class="col-md-6">

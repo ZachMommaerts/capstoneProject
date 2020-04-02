@@ -73,9 +73,23 @@ namespace Installer_PM_Comms.Controllers
         // GET: Jobs/Create
         public IActionResult Create()
         {
-            ViewData["ClientName"] = new SelectList(_context.Clients, "Id", "Id");
+            var Installers = _context.Installers;
+            var Clients = _context.Clients;
+            var Job = new JobViewModel();
+            Job.Clients = new List<Client>();
+            Job.Installers = new List<Installer>();
+
+            foreach(Client client in Clients)
+            {
+                Job.Clients.Add(client);
+            }
+            foreach(Installer installer in Installers)
+            {
+                Job.Installers.Add(installer);
+            }
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
             ViewData["ProjectManagerId"] = new SelectList(_context.Project_Managers, "Id", "Id");
-            return View();
+            return View(Job);
         }
         public async Task<IActionResult> GetAllJobs()
         {
@@ -89,11 +103,12 @@ namespace Installer_PM_Comms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(JobViewModel JobViewModel)
+        public async Task<IActionResult> Create(JobViewModel JobViewModel, Installer installer)
         {
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var pmId = _context.Project_Managers.Where(p => p.IdentityUserId == userId).Select(p => p.Id).FirstOrDefault();
                 string uniqueFileName = UploadedFile(JobViewModel);
                 Job_Installs job_Installs = new Job_Installs();
                 Job Job = new Job
@@ -103,9 +118,11 @@ namespace Installer_PM_Comms.Controllers
                     JobName = JobViewModel.JobName,
                     Description = JobViewModel.Description,
                     InstallDate = JobViewModel.InstallDate,
-                    Client = JobViewModel.Client
+                    ClientId = JobViewModel.ClientId,
+                    ProjectManagerId = pmId
                 };
                 job_Installs.JobId = Job.Id;
+                job_Installs.InstallerId = installer.Id;
                 _context.Jobs.Add(Job);
                 _context.Job_Installs.Add(job_Installs);
                 await _context.SaveChangesAsync();
